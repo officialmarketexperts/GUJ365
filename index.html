@@ -9,7 +9,7 @@
 <meta name="description"
 content="Join Gujarati Trader Telegram for free market education, chart learning, and risk management. Educational purpose only." />
 
-<!-- ================= META PIXEL (UPDATED – PAGEVIEW ONLY) ================= -->
+<!-- ================= META PIXEL ================= -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -168,9 +168,8 @@ margin-top:20px;
     </div>
 
     <a href="https://t.me/+pTP3A6QS-D1mODI1"
-       target="_blank"
-       rel="noopener"
-       class="btn btn-primary">
+       class="btn btn-primary"
+       id="telegramJoinBtn">
        Join Free Telegram Channel
     </a>
   </div>
@@ -203,6 +202,24 @@ margin-top:20px;
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ===== 100% WORKING TELEGRAM SUBSCRIBE TRACKING ===== */
+let fired = false;
+document.getElementById('telegramJoinBtn').addEventListener('click', function (e) {
+  if (!fired) {
+    e.preventDefault(); // stop instant redirect
+
+    fbq('track', 'Subscribe', {
+      content_name: 'Telegram Join'
+    });
+
+    fired = true;
+
+    setTimeout(() => {
+      window.location.href = this.href;
+    }, 300); // enough time for pixel fire
+  }
+});
 </script>
 
 </body>
