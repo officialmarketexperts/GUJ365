@@ -10,7 +10,7 @@
   const BRAND_NAME = "TRADE WITH MOHIT AGARWAL";
   const LOGO_URL = "https://uploads.onecompiler.io/446vwj75z/448qqnmcq/WhatsApp%20Image%202025-12-26%20at%2018.36.44.jpeg";
   const TELEGRAM_LINK = "https://t.me/+04UKcygVzuQ1NGFl";
-  const META_PIXEL_ID = "854022320703423";   // change anytime
+  const META_PIXEL_ID = "854022320703423";
 </script>
 <!-- ===================================================== -->
 
@@ -30,12 +30,12 @@
 }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
 fbq('init', META_PIXEL_ID);
-fbq('track', 'PageView');     // ✅ PageView only
+fbq('track','PageView');
 </script>
 
 <noscript>
 <img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=888414463652602&ev=PageView&noscript=1"/>
+src="https://www.facebook.com/tr?id=854022320703423&ev=PageView&noscript=1"/>
 </noscript>
 <!-- ================= META PIXEL END ================= -->
 
@@ -143,6 +143,13 @@ width:22px;
 height:22px;
 }
 
+/* DISABLED BUTTON */
+.btn.disabled{
+pointer-events:none;
+opacity:.6;
+filter:grayscale(1);
+}
+
 /* LIVE */
 .live{
 margin-top:26px;
@@ -172,7 +179,6 @@ line-height:1.6;
 
 <div class="container">
 
-  <!-- LOGO -->
   <div class="logo">
     <img id="logo" src="" alt="Logo">
   </div>
@@ -196,8 +202,7 @@ line-height:1.6;
   </div>
 
   <!-- TELEGRAM BUTTON -->
-  <a class="btn" href="#" target="_blank" id="tgBtn">
-    <!-- TELEGRAM ICON -->
+  <a class="btn" href="#" id="tgBtn">
     <svg viewBox="0 0 240 240">
       <path fill="#000"
         d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120
@@ -211,7 +216,6 @@ line-height:1.6;
     JOIN TELEGRAM
   </a>
 
-  <!-- LIVE RESULT -->
   <div class="live">
     <div>✨ Ajay P.</div>
     <div class="amount">+ ₹28,600</div>
@@ -226,16 +230,29 @@ line-height:1.6;
 </div>
 
 <script>
-/* APPLY EDITABLE DATA */
 document.getElementById("brand").innerText = BRAND_NAME;
 document.getElementById("logo").src = LOGO_URL;
 document.getElementById("tgBtn").href = TELEGRAM_LINK;
 
-/* ONLY ALLOWED EVENTS */
-document.getElementById("tgBtn").addEventListener("click", function(){
-  fbq('track','JoinTelegram');   // ✅ custom
-  fbq('track','Subscribe');      // ✅ subscribe
-  fbq('track','Lead');           // ✅ lead
+let clicked = false;
+
+document.getElementById("tgBtn").addEventListener("click", function(e){
+  if(clicked){
+    e.preventDefault();
+    return;
+  }
+
+  clicked = true;
+  this.classList.add("disabled");
+  this.innerHTML = "PROCESSING...";
+
+  fbq('track','JoinTelegram');
+  fbq('track','Subscribe');
+  fbq('track','Lead');
+
+  setTimeout(()=>{
+    window.open(TELEGRAM_LINK, "_blank");
+  },300);
 });
 </script>
 
